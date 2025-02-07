@@ -3,7 +3,7 @@
     <!-- JDBC connection string for PostgreSQL -->
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:postgresql://localhost:5432/hive_metastore</value>
+        <value>jdbc:postgresql://host.docker.internal:5432/hive_metastore</value>
         <description>PostgreSQL connection URL for Hive metastore</description>
     </property>
 
@@ -35,10 +35,14 @@
     </property>
     <property>
         <name>hive.metastore.schema.verification</name>
-        <value>true</value>
+        <value>false</value>
     </property>
     <property>
         <name>hive.metastore.schema.verification.record.version</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>datanucleus.schema.autoCreateTables</name>
         <value>true</value>
     </property>
 

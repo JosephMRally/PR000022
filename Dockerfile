@@ -61,6 +61,9 @@ RUN echo "spark.eventLog.enabled true" >> $SPARK_HOME/conf/spark-defaults.conf \
     && echo "spark.eventLog.dir file://${SPARK_HOME}/event_logs" >> $SPARK_HOME/conf/spark-defaults.conf \
     && echo "spark.history.fs.logDirectory file://${SPARK_HOME}/event_logs" >> $SPARK_HOME/conf/spark-defaults.conf
 
+# create hive directory
+RUN mkdir -p /user/hive/warehouse
+RUN chmod 777 /user/hive/warehouse # TODO: limit permissions
 
 # Install Python packages for Jupyter and PySpark and scala
 RUN pip install --upgrade pip
@@ -71,7 +74,6 @@ RUN jupyter kernelspec list
 
 # install delta lakes
 RUN pip install delta-spark==3.2.0
-
 
 # Add the entrypoint script
 COPY entrypoint.sh /home/spark/entrypoint.sh
