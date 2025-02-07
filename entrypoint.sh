@@ -25,16 +25,6 @@ start_pyspark_shell() {
         --conf spark.sql.catalogImplementation=hive        
 }
 
-# Initialize the Hive Metastore schema if not already initialized
-echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-if schematool -dbType postgres -info | grep -q "Schema version"; then
-    echo "Hive schema already initialized."
-else
-    echo "Initializing Hive schema..."
-    schematool -dbType postgres -initSchema || echo "Schema already initialized or encountered an error"
-fi
-echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-
 # Main logic to decide which service to start
 case "$1" in
     jupyter)
