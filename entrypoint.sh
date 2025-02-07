@@ -18,8 +18,22 @@ start_pyspark_shell() {
     echo "Starting PySpark Shell..."
     unset PYSPARK_DRIVER_PYTHON
     unset PYSPARK_DRIVER_PYTHON_OPTS
-    $SPARK_HOME/sbin/start-history-server.sh && pyspark --packages io.delta:delta-spark --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" --conf "spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog"
+    $SPARK_HOME/sbin/start-history-server.sh && pyspark 
+        --packages io.delta:delta-spark 
+        --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" 
+        --conf "spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog"
+        --conf spark.sql.catalogImplementation=hive        
 }
+
+# Initialize the Hive Metastore schema if not already initialized
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+if schematool -dbType postgres -info | grep -q "Schema version"; then
+    echo "Hive schema already initialized."
+else
+    echo "Initializing Hive schema..."
+    schematool -dbType postgres -initSchema || echo "Schema already initialized or encountered an error"
+fi
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 # Main logic to decide which service to start
 case "$1" in
