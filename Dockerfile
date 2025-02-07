@@ -65,6 +65,12 @@ RUN echo "spark.eventLog.enabled true" >> $SPARK_HOME/conf/spark-defaults.conf \
 RUN mkdir -p /user/hive/warehouse
 RUN chmod 777 /user/hive/warehouse # TODO: limit permissions
 
+# Copy the config files and jar files across
+# TODO: jars should be downloaded
+COPY hive-site.xml /home/spark/config
+COPY spark-defaults.conf /home/spark/config
+COPY postgresql-42.7.5.jar /home/spark/jars
+
 # Install Python packages for Jupyter and PySpark and scala
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir jupyter findspark
@@ -79,7 +85,10 @@ RUN pip install delta-spark==3.2.0
 COPY entrypoint.sh /home/spark/entrypoint.sh
 RUN chmod +x /home/spark/entrypoint.sh
 
+
+#
 # Switch to non-root user
+#
 USER $USERNAME
 
 # Set workdir and create application directories
