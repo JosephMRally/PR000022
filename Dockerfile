@@ -67,8 +67,8 @@ RUN chmod 777 /user/hive/warehouse # TODO: limit permissions
 
 # Copy the config files and jar files across
 # TODO: jars should be downloaded
-COPY hive-site.xml /home/spark/config
-COPY spark-defaults.conf /home/spark/config
+COPY hive-site.xml /home/spark/conf/
+COPY spark-defaults.conf /home/spark/conf/
 COPY postgresql-42.7.5.jar /home/spark/jars
 
 # Install Python packages for Jupyter and PySpark and scala
