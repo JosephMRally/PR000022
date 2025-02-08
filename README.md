@@ -1,3 +1,23 @@
+# Special Thanks
+
+## Getting Started
+1. Install docker desktop
+2. Run the following in Terminal.app
+```
+docker pull postgres:latest
+docker stop hive_metastore
+docker rm hive_metastore
+docker run --name hive_metastore -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust -d postgres
+
+docker stop spark-container
+docker rm spark-container
+docker build -t spark-dp-101 .; 
+hostfolder="$(pwd)";
+dockerfolder="/home/sparkuser/app";
+docker run --rm -d --name spark-container -p 4040:4040 -p 4041:4041 -p 18080:18080 -v ${hostfolder}/app:${dockerfolder} -v ${hostfolder}/event_logs:/home/spark/event_logs spark-dp-101:latest jupyter
+```
+
+
 # Spark-DP-101
 
 Spark Data Platform-101 is a Very basic Apache Spark setup in a Docker Container. 
