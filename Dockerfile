@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     whois \
     ca-certificates-java \
+    postgresql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -60,6 +61,15 @@ RUN echo "spark.eventLog.enabled true" >> $SPARK_HOME/conf/spark-defaults.conf \
     && echo "spark.eventLog.dir file://${SPARK_HOME}/event_logs" >> $SPARK_HOME/conf/spark-defaults.conf \
     && echo "spark.history.fs.logDirectory file://${SPARK_HOME}/event_logs" >> $SPARK_HOME/conf/spark-defaults.conf
 
+# create hive directory
+RUN mkdir -p /user/hive/warehouse
+RUN chmod 777 /user/hive/warehouse # TODO: limit permissions
+
+# Copy the config files and jar files across
+# TODO: jars should be downloaded
+COPY hive-site.xml /home/spark/conf/
+COPY spark-defaults.conf /home/spark/conf/
+COPY postgresql-42.7.5.jar /home/spark/jars
 
 # Install Python packages for Jupyter and PySpark and scala
 RUN pip install --upgrade pip
@@ -71,12 +81,14 @@ RUN jupyter kernelspec list
 # install delta lakes
 RUN pip install delta-spark==3.2.0
 
-
 # Add the entrypoint script
 COPY entrypoint.sh /home/spark/entrypoint.sh
 RUN chmod +x /home/spark/entrypoint.sh
 
+
+#
 # Switch to non-root user
+#
 USER $USERNAME
 
 # Set workdir and create application directories
