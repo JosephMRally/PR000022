@@ -1,6 +1,8 @@
 # Special Thanks
 
 ## Getting Started
+These instructions have only been tested on modern Mac MX processors.
+
 1. Install Brew: https://docs.brew.sh/Installation
 2. Install docker desktop for apple silicon: https://docs.docker.com/desktop/setup/install/mac-install/
 3. Run the following in Terminal.app
@@ -20,10 +22,6 @@ docker run --rm -d --name spark-container -p 4040:4040 -p 4041:4041 -p 18080:180
 4. Spark Shell, Pyspark Shell, Jupyter Notebook http://localhost:4041, Spark UI http://localhost:4040, Spark History Server http://localhost:18080
 5. Open Jupyter Notebook
 6. 
-   
-   
-
-
 
 ### Architecture
 
