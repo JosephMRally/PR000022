@@ -1,8 +1,9 @@
 # Special Thanks
 
 ## Getting Started
-1. Install docker desktop
-2. Run the following in Terminal.app
+1. Install Brew: https://docs.brew.sh/Installation
+2. Install docker desktop for apple silicon: https://docs.docker.com/desktop/setup/install/mac-install/
+3. Run the following in Terminal.app
 ```
 docker pull postgres:latest
 docker stop hive_metastore
