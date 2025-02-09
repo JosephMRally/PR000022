@@ -17,19 +17,13 @@ hostfolder="$(pwd)";
 dockerfolder="/home/sparkuser/app";
 docker run --rm -d --name spark-container -p 4040:4040 -p 4041:4041 -p 18080:18080 -v ${hostfolder}/app:${dockerfolder} -v ${hostfolder}/event_logs:/home/spark/event_logs spark-dp-101:latest jupyter
 ```
+4. Spark Shell, Pyspark Shell, Jupyter Notebook http://localhost:4041, Spark UI http://localhost:4040, Spark History Server http://localhost:18080
+5. Open Jupyter Notebook
+6. 
+   
+   
 
 
-# Spark-DP-101
-
-Spark Data Platform-101 is a Very basic Apache Spark setup in a Docker Container. 
-This setup is designed for testing Apache spark and for learning purpose as an alternative to VM's 
-which are big in volume and take too much resources. 
-This docker application has all basic features of Apache Spark like:
-1. Spark Shell 
-2. Pyspark Shell 
-3. Jupyter Notebook http://localhost:4041
-4. Spark UI http://localhost:4040
-5. Spark History Server http://localhost:18080
 
 ### Architecture
 
