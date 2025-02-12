@@ -70,6 +70,7 @@ RUN chmod 777 /user/hive/warehouse # TODO: limit permissions
 COPY hive-site.xml /home/spark/conf/
 COPY spark-defaults.conf /home/spark/conf/
 COPY postgresql-42.7.5.jar /home/spark/jars
+RUN psql -h host.docker.internal -U postgres --no-password -c "create database hive_metastore owner postgres"
 
 # Install Python packages for Jupyter and PySpark and scala
 RUN pip install --upgrade pip
