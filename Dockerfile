@@ -3,7 +3,7 @@ FROM python:3.11-buster
 
 # Set environment variables for Spark and Java
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64
-ENV SPARK_VERSION=3.5.1
+ENV SPARK_VERSION=3.5.4
 ENV HADOOP_VERSION=3
 ENV SPARK_HOME=/home/spark
 ENV PATH=$SPARK_HOME/bin:$PATH
@@ -78,6 +78,7 @@ RUN pip install --no-cache-dir jupyter findspark
 RUN pip install spylon-kernel
 RUN python -m spylon_kernel install
 RUN jupyter kernelspec list
+RUN pip install pandas
 
 # install delta lakes
 RUN pip install delta-spark==3.2.0 deltalake==0.16.4
